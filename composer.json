@@ -1,6 +1,6 @@
 {
 	"name": "icybee/module-cache",
-	"type": "icybee-module",
+	"type": "icanboogie-module",
 	"description": "Provides a common API and a centralized place to manage caches.",
 	"keywords": [ "cache" ],
 	"license": "BSD-3-Clause",
@@ -19,7 +19,7 @@
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.3.0",
-		"icybee/module-installer": "*"
+		"icanboogie/module-installer": "*"
 	},
 	"autoload": {
 		"classmap": [ "lib" ]
