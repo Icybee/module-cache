@@ -123,7 +123,7 @@ EOT;
 	<td class="title">$title<div class="element-description">$description</div></td>
 	<td class="limit config">$config_preview</td>
 	<td class="usage {$usage_empty}">$stat</td>
-	<td class="cell--erase">{$button}</td>
+	<td class="cell--empty">{$button}</td>
 </tr>
 EOT;
 			}

@@ -46,9 +46,15 @@ table.manage tbody td.usage.empty + td button {
 	visibility: hidden;
 }
 
-table.manage td.cell--erase {
+table.manage td.cell--empty {
 	text-align: center;
 	width: 1%;
+}
+
+table.manage td.cell--empty button::before {
+	font-family: FontAwesome;
+	content: "\f014";
+	margin-right: .5ex;
 }
 
 table.manage tbody div.element-description {
