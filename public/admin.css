@@ -1,62 +1,77 @@
 @CHARSET "UTF-8";
 
-table.manage td {
+.listview {
+	padding: 4;
+	border-collapse: collapse;
+}
+
+.listview td {
 	padding: 4px;
 	vertical-align: middle;
 }
 
-table.manage td.top {
+.listview td.top {
 	vertical-align: top;
 }
 
-table.manage th.right {
+.listview th.right {
 	text-align: right;
 }
 
-table.manage tbody td.title {
+.listview tbody td.title,
+.listview td.cell--title {
 	padding-top: 1em;
 	padding-bottom: 1em;
 }
 
-table.manage tbody td.state {
+.listview tbody td.state,
+.listview td.cell--is-active {
 	width: 20px;
 }
 
-table.manage tbody td.state .checkbox-wrapper {
+.listview tbody td.state .checkbox-wrapper,
+.listview td.cell--is-active .checkbox-wrapper {
 	margin: auto;
 }
 
-table.manage tbody td.config,
-table.manage tbody td.usage.empty,
-table.manage tbody div.element-description {
+.listview tbody td.config,
+.listview td.cell--config
+.listview tbody td.usage.empty,
+.listview tbody tr.empty td.cell--usage,
+.listview .element-description {
 	font-size: 12px;
 }
 
-table.manage tbody td.usage {
+.listview tbody td.usage,
+.listview td.cell--usage {
 	text-align: right;
 	white-space: nowrap;
 }
 
-table.manage tbody td.usage.empty {
+.listview tbody td.usage.empty,
+.listview tr.empty .cell--usage {
 	color: #808080;
 	font-style: italic;
 }
 
-table.manage tbody td.usage.empty + td button {
+.listview tbody td.usage.empty + td button,
+.listview tbody tr.empty .cell--clear button {
 	visibility: hidden;
 }
 
-table.manage td.cell--empty {
+.listview td.cell--empty,
+.listview td.cell--clear {
 	text-align: center;
 	width: 1%;
 }
 
-table.manage td.cell--empty button::before {
+.listview td.cell--empty button::before,
+.listview td.cell--clear button::before {
 	font-family: FontAwesome;
 	content: "\f014";
 	margin-right: .5ex;
 }
 
-table.manage tbody div.element-description {
+.listview .element-description {
 	margin: .5em 0 0 0;
 }

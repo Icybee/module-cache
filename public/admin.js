@@ -1,12 +1,12 @@
 window.addEvent('domready', function() {
 
-	var table = document.body.getElement('table.manage')
+	var block = document.body.getElement('.block--cache--manage')
 	, popover = null
 	, popoverTrigger = null
 
 	function getCacheName(el)
 	{
-		return el.getParent('tr').getElement('td.state input').name
+		return el.getParent('tr').get('data-entry-key')
 	}
 
 	function updateStat(el)
@@ -17,16 +17,16 @@ window.addEvent('domready', function() {
 
 			onSuccess: function(response)
 			{
-				el[(response.count ? 'remove' : 'add') + 'Class']('empty')
+				el.getParent('tr')[(response.count ? 'remove' : 'add') + 'Class']('empty')
 				el.innerHTML = response.rc
 			}
 
 		}).get()
 	}
 
-	table.addEvents({
+	block.addEvents({
 
-		'click:relay(td.state input)': function(ev, el) {
+		'click:relay(td.cell--is-active input)': function(ev, el) {
 
 			new Request.API({
 
@@ -43,9 +43,10 @@ window.addEvent('domready', function() {
 
 				onSuccess: function(response)
 				{
-					var target = el.getParent('tr').getElement('td.usage')
+					var row = el.getParent('tr')
+					, target = row.getElement('td.cell--usage')
 
-					target[(response.rc[0] ? 'remove' : 'add') + 'Class']('empty')
+					row[(response.rc[0] ? 'remove' : 'add') + 'Class']('empty')
 					target.innerHTML = response.rc[1]
 				}
 			})
@@ -53,7 +54,7 @@ window.addEvent('domready', function() {
 			req.send()
 		},
 
-		'click:relay(td.config .spinner)': function(ev, el)	{
+		'click:relay(td.cell--configuration .spinner)': function(ev, el) {
 
 			var cacheId = getCacheName(el)
 

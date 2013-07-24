@@ -13,33 +13,8 @@ namespace Icybee\Modules\Cache;
 
 use ICanBoogie\I18n;
 
-use Brickrouge\Button;
-use Brickrouge\Element;
-
-/**
- * Manage block.
- */
-class ManageBlock extends Element
+class ManageBlock extends \Brickrouge\ListView
 {
-	protected $module;
-
-	public function __construct(Module $module, array $attributes=array())
-	{
-		$this->module = $module;
-
-		parent::__construct
-		(
-			'table', $attributes + array
-			(
-				'class' => 'manage',
-				'cellpadding' => 0,
-				'cellspacing' => 0,
-				'border' => 0,
-				'width' => "100%"
-			)
-		);
-	}
-
 	static public function add_assets(\Brickrouge\Document $document)
 	{
 		parent::add_assets($document);
@@ -49,100 +24,232 @@ class ManageBlock extends Element
 		$document->js->add(DIR . 'public/admin.js');
 	}
 
-	protected function render_inner_html()
-	{
-		$groups = array();
+	protected $module;
 
-		foreach (Collection::get() as $cache_id => $cache)
+	/**
+	 * Cache collection.
+	 *
+	 * @var Collection
+	 */
+	protected $collection;
+
+	public function __construct(Module $module, array $attributes=array())
+	{
+		$this->module = $module;
+		$this->collection = Collection::get();
+
+		parent::__construct
+		(
+			$attributes + array
+			(
+				self::COLUMNS => array
+				(
+					'is_active' => __CLASS__ . '\IsActiveColumn',
+					'title' => __CLASS__ . '\TitleColumn',
+					'configuration' => __CLASS__ . '\ConfigurationColumn',
+					'usage' => __CLASS__ . '\UsageColumn',
+					'clear' => __CLASS__ . '\ClearColumn'
+				),
+
+				self::ENTRIES => $this->collection
+			)
+		);
+	}
+
+	protected function get_entries()
+	{
+		$indexed_entries = array();
+		$i = 0;
+
+		foreach (parent::get_entries() as $entry)
 		{
-			$section_title = I18n\t(ucfirst($cache->group), array(), array('scope' => 'cache.group'));
-			$groups[$section_title][$cache_id] = $cache;
+			$indexed_entries[$i++] = $entry;
 		}
 
-		$rows = '';
+		return $indexed_entries;
+	}
 
-		foreach ($groups as $group_title => $group)
+	protected function render_rows(array $rows)
+	{
+		$rendered_rows = parent::render_rows($rows);
+		$entries = $this->entries;
+		$grouped = array();
+
+		foreach ($rendered_rows as $i => $row)
 		{
-			$rows .= <<<EOT
-<tr class="section-title">
+			$cache = $entries[$i];
+			$group_title = I18n\t(ucfirst($cache->group), array(), array('scope' => 'cache.group'));
+			$grouped[$group_title][$i] = $row;
+		}
+
+		$rendered_rows = array();
+
+		foreach ($grouped as $group_title => $rows)
+		{
+			$rendered_rows[] = <<<EOT
+<tr class="listview-divider">
 	<td>&nbsp;</td>
 	<td>$group_title</td>
 	<td colspan="3">&nbsp;</td>
 </tr>
 EOT;
-
-			foreach ($group as $cache_id => $cache)
+			foreach ($rows as $i => $row)
 			{
-				$checked = $cache->state;
-
-				$checkbox = new Element
-				(
-					'label', array
-					(
-						Element::CHILDREN => array
-						(
-							new Element
-							(
-								Element::TYPE_CHECKBOX, array
-								(
-									'checked' => $checked,
-									'disabled' => $cache->state === null,
-									'name' => $cache_id
-								)
-							)
-						),
-
-						'title' => "Enable/disable the cache",
-						'class' => 'checkbox-wrapper circle' . ($checked ? ' checked': '')
-					)
-				);
-
-				$title = I18n\t($cache->title, array(), array('scope' => 'cache.title'));
-				$description = I18n\t($cache->description, array(), array('scope' => 'cache.description'));
-
-				$config_preview = $cache->config_preview;
-
-				if ($config_preview)
-				{
-					$config_preview = '<a title="Configure the cache" class="spinner">' . $config_preview . '</a>';
-				}
-				else
-				{
-					$config_preview = '&nbsp;';
-				}
+				$cache = $entries[$i];
 
 				list($n, $stat) = $cache->stat();
 
-				$usage_empty = $n ? '' : 'empty';
+				if (!$n)
+				{
+					$row->add_class('empty');
+				}
 
-				$button = new Button('Clear', array('class' => 'btn-warning', 'name' => 'clear'));
+				$row['data-entry-key'] = $cache->id;
 
-				$rows .= <<<EOT
-<tr data-cache-id="$cache_id">
-	<td class="state">$checkbox</td>
-	<td class="title">$title<div class="element-description">$description</div></td>
-	<td class="limit config">$config_preview</td>
-	<td class="usage {$usage_empty}">$stat</td>
-	<td class="cell--empty">{$button}</td>
-</tr>
-EOT;
+				$rendered_rows[] = $row;
 			}
 		}
 
-		$rc = <<<EOT
-	<thead>
-		<tr>
-			<th><div>&nbsp;</div></th>
-			<th><div>Cache type</div></th>
-			<th><div>Configuration</span></div></th>
-			<th class="right"><div>Usage</div></th>
-			<th><div>&nbsp;</div></th>
-		</tr>
-	</thead>
+		return $rendered_rows;
+	}
+}
 
-	<tbody>$rows</tbody>
+namespace Icybee\Modules\Cache\ManageBlock;
+
+use ICanBoogie\I18n;
+
+use Brickrouge\Button;
+use Brickrouge\Element;
+use Brickrouge\ListView;
+use Brickrouge\ListViewColumn;
+
+class IsActiveColumn extends ListViewColumn
+{
+	public function __construct(ListView $listview, $id, array $options=array())
+	{
+		parent::__construct
+		(
+			$listview, $id, $options + array
+			(
+				'title' => null
+			)
+		);
+	}
+
+	public function render_cell($entry)
+	{
+		$checked = $entry->state;
+
+		return new Element
+		(
+			'label', array
+			(
+				Element::CHILDREN => array
+				(
+					new Element
+					(
+						Element::TYPE_CHECKBOX, array
+						(
+							'checked' => $checked,
+							'disabled' => $entry->state === null,
+							'name' => $entry->id
+						)
+					)
+				),
+
+				'title' => "Enable/disable the cache",
+				'class' => 'checkbox-wrapper circle' . ($checked ? ' checked': '')
+			)
+		);
+	}
+}
+
+class TitleColumn extends ListViewColumn
+{
+	public function __construct(ListView $listview, $id, array $options=array())
+	{
+		parent::__construct
+		(
+			$listview, $id, $options + array
+			(
+				'title' => 'Cache type'
+			)
+		);
+	}
+
+	public function render_cell($cache)
+	{
+		$title = I18n\t($cache->title, array(), array('scope' => 'cache.title'));
+		$description = I18n\t($cache->description, array(), array('scope' => 'cache.description'));
+
+		return <<<EOT
+$title<div class="element-description">$description</div>
 EOT;
+	}
+}
 
-		return $rc;
+class ConfigurationColumn extends ListViewColumn
+{
+	public function __construct(ListView $listview, $id, array $options=array())
+	{
+		parent::__construct
+		(
+			$listview, $id, $options + array
+			(
+				'title' => 'Configuration'
+			)
+		);
+	}
+
+	public function render_cell($cache)
+	{
+		$config_preview = $cache->config_preview;
+
+		if (!$config_preview)
+		{
+			return;
+		}
+
+		return '<span title="Configure the cache" class="spinner" tabindex="0">' . $config_preview . '</span>';
+	}
+}
+
+class UsageColumn extends ListViewColumn
+{
+	public function __construct(ListView $listview, $id, array $options=array())
+	{
+		parent::__construct
+		(
+			$listview, $id, $options + array
+			(
+				'title' => 'Usage'
+			)
+		);
+	}
+
+	public function render_cell($cache)
+	{
+		list($n, $stat) = $cache->stat();
+
+		return $stat;
+	}
+}
+
+class ClearColumn extends ListViewColumn
+{
+	public function __construct(ListView $listview, $id, array $options=array())
+	{
+		parent::__construct
+		(
+			$listview, $id, $options + array
+			(
+				'title' => null
+			)
+		);
+	}
+
+	public function render_cell($cache)
+	{
+		return new Button('Clear', array('class' => 'btn-warning', 'name' => 'clear'));
 	}
 }

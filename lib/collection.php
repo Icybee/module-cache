@@ -44,6 +44,11 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 
 		new Collection\CollectEvent($this, $collection);
 
+		foreach ($collection as $id => $cache)
+		{
+			$cache->id = $id;
+		}
+
 		$this->collection = $collection;
 	}
 
