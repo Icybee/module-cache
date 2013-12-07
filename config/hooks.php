@@ -14,6 +14,6 @@ return array
 
 	'prototypes' => array
 	(
-		'ICanBoogie\Core::volatile_get_caches' => __NAMESPACE__ . '\Collection::get'
+		'ICanBoogie\Core::get_caches' => __NAMESPACE__ . '\Collection::get'
 	)
 );

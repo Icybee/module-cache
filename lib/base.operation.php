@@ -29,7 +29,7 @@ abstract class BaseOperation extends \ICanBoogie\Operation
 		+ parent::get_controls();
 	}
 
-	protected function volatile_get_collection()
+	protected function get_collection()
 	{
 		return Collection::get();
 	}
