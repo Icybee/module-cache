@@ -12,7 +12,6 @@
 namespace Icybee\Modules\Cache;
 
 use ICanBoogie\Errors;
-use ICanBoogie\Exception;
 
 /**
  * @property-read Collection $collection Caches collection.
