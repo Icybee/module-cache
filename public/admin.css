@@ -29,11 +29,6 @@
 	width: 20px;
 }
 
-.listview tbody td.state .checkbox-wrapper,
-.listview td.cell--is-active .checkbox-wrapper {
-	margin: auto;
-}
-
 .listview tbody td.config,
 .listview td.cell--config
 .listview tbody td.usage.empty,

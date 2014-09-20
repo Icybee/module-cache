@@ -122,6 +122,7 @@ use Brickrouge\Button;
 use Brickrouge\Element;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
+use Icybee\WrappedCheckbox;
 
 class IsActiveColumn extends ListViewColumn
 {
@@ -140,27 +141,15 @@ class IsActiveColumn extends ListViewColumn
 	{
 		$checked = $entry->state;
 
-		return new Element
-		(
-			'label', array
-			(
-				Element::CHILDREN => array
-				(
-					new Element
-					(
-						Element::TYPE_CHECKBOX, array
-						(
-							'checked' => $checked,
-							'disabled' => $entry->state === null,
-							'name' => $entry->id
-						)
-					)
-				),
+		return new WrappedCheckbox([
 
-				'title' => "Enable/disable the cache",
-				'class' => 'checkbox-wrapper circle' . ($checked ? ' checked': '')
-			)
-		);
+			'checked' => $checked,
+			'disabled' => $entry->state === null,
+			'name' => $entry->id,
+			'title' => "Enable/disable the cache",
+			'class' => 'wrapped-checkbox circle'
+
+		]);
 	}
 }
 
