@@ -32,17 +32,22 @@ class ConfigsCacheManager extends CacheManager
 	 */
 	public function clear()
 	{
-		global $core;
+		$di = new \DirectoryIterator($this->get_path());
+		$n = 0;
 
-		$path = $core->config['repository.cache'] . '/core';
-		$files = glob(\ICanBoogie\DOCUMENT_ROOT . $path . '/config_*');
-
-		foreach ($files as $file)
+		foreach ($di as $file)
 		{
-			unlink($file);
+			if (!$file->isFile())
+			{
+				continue;
+			}
+
+			$n++;
+
+			unlink($file->getPathname());
 		}
 
-		return count($files);
+		return $n;
 	}
 
 	/**
@@ -78,10 +83,11 @@ class ConfigsCacheManager extends CacheManager
 	 */
 	public function stat()
 	{
-		global $core;
+		return Module::get_files_stat($this->get_path());
+	}
 
-		$path = $core->config['repository.cache'] . '/core';
-
-		return Module::get_files_stat($path, '#^config_#');
+	private function get_path()
+	{
+		return \ICanBoogie\REPOSITORY . 'cache' . DIRECTORY_SEPARATOR . 'configs';
 	}
 }
