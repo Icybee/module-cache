@@ -32,7 +32,14 @@ class ConfigsCacheManager extends CacheManager
 	 */
 	public function clear()
 	{
-		$di = new \DirectoryIterator($this->get_path());
+		$path = $this->get_path();
+
+		if (!file_exists($path))
+		{
+			return 0;
+		}
+
+		$di = new \DirectoryIterator($path);
 		$n = 0;
 
 		foreach ($di as $file)
