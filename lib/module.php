@@ -17,16 +17,11 @@ class Module extends \Icybee\Module
 {
 	static public function get_files_stat($path, $pattern=null)
 	{
-		$root = \ICanBoogie\DOCUMENT_ROOT;
-
 		if (!file_exists($path))
 		{
-			$path = $root . $path;
-		}
-
-		if (!file_exists($path))
-		{
-			mkdir($path, 0705, true);
+			set_error_handler(function () {});
+			$rc = mkdir($path, 0705, true);
+			restore_error_handler();
 
 			if (!file_exists($path))
 			{
