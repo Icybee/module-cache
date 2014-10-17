@@ -2,19 +2,19 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\Module;
+use ICanBoogie\Module\Descriptor;
 
 return array
 (
-	Module::T_CATEGORY => 'features',
-	Module::T_DESCRIPTION => "Provides a unified cache system",
-	Module::T_NAMESPACE => __NAMESPACE__,
-	Module::T_PERMISSIONS => array
+	Descriptor::CATEGORY => 'features',
+	Descriptor::DESCRIPTION => "Provides a unified cache system",
+	Descriptor::NS => __NAMESPACE__,
+	Descriptor::PERMISSIONS => array
 	(
 		'administer system cache'
 	),
 
-	Module::T_REQUIRED => true,
-	Module::T_TITLE => 'Cache',
-	Module::T_VERSION => '1.0'
+	Descriptor::REQUIRED => true,
+	Descriptor::TITLE => 'Cache',
+	Descriptor::VERSION => '1.0'
 );
