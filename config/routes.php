@@ -1,9 +1,11 @@
 <?php
 
-return array
-(
-	'!admin:manage' => array
-	(
+return [
 
-	)
-);
+	'!admin:manage' => [
+
+		'pattern' => '!auto',
+		'controller' => true
+
+	]
+];
