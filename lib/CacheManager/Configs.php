@@ -9,15 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\CacheManager;
+
+use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\Module;
 
 /**
  * Configurations cache manager.
  */
-class ConfigsCacheManager extends CacheManager
+class Configs extends CacheManager
 {
 	public $title = "Configurations";
-	public $description = "Configurations des différents composants du framework.";
+	public $description = "Configuration files of the framework components.";
 	public $group = 'system';
 
 	public function __construct()

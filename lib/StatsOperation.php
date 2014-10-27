@@ -11,21 +11,19 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\I18n\FormattedString;
-
 /**
- * Clears the specified cache.
+ * Returns the usage (memory, files) of the specified cache.
  */
-class ClearOperation extends BaseOperation
+class StatOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		$cache->clear();
+		list($count, $label) = $cache->stat();
 
-		$this->response->message = new FormattedString('The cache %cache has been cleared.', array('cache' => $this->key));
+		$this->response['count'] = (int) $count;
 
-		return $cache->stat();
+		return $label;
 	}
 }

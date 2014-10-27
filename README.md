@@ -1,67 +1,8 @@
-# The `cache` module
+# Cache
 
-The `cache` module provides a common API and a centralized place to manage caches.
+The Cache module (`cache`) provides a common API and a centralized place to manage caches.
 
 The module comes with cache managers for the framework [ICanBoogie](http://icanboogie.org/).
-
-
-
-
-
-## Requirement
-
-The package requires PHP 5.3 or later.  
-The package also requires an installation of [Icybee](http://icybee.org).
-
-
-
-
-
-## Installation
-
-The recommended way to install this package is through [Composer](http://getcomposer.org/).
-Create a `composer.json` file and run `php composer.phar install` command to install it:
-
-```json
-{
-	"minimum-stability": "dev",
-	"require":
-	{
-		"icybee/module-cache": "*"
-	}
-}
-```
-
-
-
-
-
-### Cloning the repository
-
-The package is [available on GitHub](https://github.com/Icybee/module-cache), its repository can be
-cloned with the following command line:
-
-	$ git clone git://github.com/Icybee/module-cache.git cache
-
-
-
-
-
-## Documentation
-
-The package is documented as part of the [Icybee](http://icybee.org/) CMS
-[documentation](http://icybee.org/docs/). The documentation for the package and its
-dependencies can be generated with the `make doc` command. The documentation is generated in
-the `docs` directory using [ApiGen](http://apigen.org/). The package directory can later by
-cleaned with the `make clean` command.
-
-
-
-
-
-## License
-
-The module is licensed under the New BSD License - See the LICENSE file for details.
 
 
 
@@ -101,20 +42,16 @@ use ICanBoogie\PropertyNotDefined;
 
 class CacheManager implements Icybee\Modules\Cache\CacheManagerInterface
 {
-	public function __get($property)
+	use \ICanBoogie\GetterTrait;
+
+	protected function get_config_preview()
 	{
-		switch ($property)
-		{
-			case 'config_preview':
-				return // …
-		
-			case 'editor':
-				return // …
-				
-			// …
-		}
-			
-		throw new PropertyNotDefined(array($property, $this));
+		return // …
+	}
+
+	protected function get_editor()
+	{
+		return // …
 	}
 }
 ```
@@ -143,10 +80,10 @@ return array
 	'events' => array
 	(
 		'Icybee\Modules\Cache\Collection::collect' => $hooks . 'on_cache_collection_collect',
-		
+
 		// ...
 	),
-	
+
 	// ...
 );
 ```
@@ -177,12 +114,12 @@ use Icybee\Modules\Cache\Collection as CacheCollection;
 class Hooks
 {
 	// …
-	
+
 	static public function on_cache_collection_collect(CacheCollection\CollectEvent $event, CacheCollection $collection)
 	{
 		$event->collection['icybee.views'] = new CacheManager;
 	}
-	
+
 	// …
 }
 ```
@@ -215,7 +152,7 @@ $core->caches['core.modules']->clear();
 ## Operations
 
 Cache operations require the cache identifier to be defined as key of the operation. For instance,
-to clear the `core.modules` cache the operation `POST /api/cache/core.modules/clear` is used. 
+to clear the `core.modules` cache the operation `POST /api/cache/core.modules/clear` is used.
 
 
 
@@ -289,4 +226,61 @@ The caches of ICanBoogie are cleared when modules are activated.
 
 ### Icybee\Modules\Modules\DeactivateOperation:process
 
-The caches of ICanBoogie are cleared when modules are deactivated.  
+The caches of ICanBoogie are cleared when modules are deactivated.
+
+
+
+
+
+----------
+
+
+
+
+
+## Requirement
+
+The package requires PHP 5.4 or later.
+
+
+
+
+
+## Installation
+
+The recommended way to install this package is through [Composer](http://getcomposer.org/):
+
+```
+$ composer require icybee/module-cache
+```
+
+
+
+
+
+### Cloning the repository
+
+The package is [available on GitHub](https://github.com/Icybee/module-cache), its repository can be
+cloned with the following command line:
+
+	$ git clone https://github.com/Icybee/module-cache.git
+
+
+
+
+
+## Documentation
+
+The package is documented as part of the [Icybee](http://icybee.org/) CMS
+[documentation](http://icybee.org/docs/). The documentation for the package and its
+dependencies can be generated with the `make doc` command. The documentation is generated in
+the `docs` directory using [ApiGen](http://apigen.org/). The package directory can later by
+cleaned with the `make clean` command.
+
+
+
+
+
+## License
+
+The module is licensed under the New BSD License - See the LICENSE file for details.

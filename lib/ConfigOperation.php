@@ -14,16 +14,18 @@ namespace Icybee\Modules\Cache;
 use ICanBoogie\I18n\FormattedString;
 
 /**
- * Disables the specified cache.
+ * Configures the specified cache.
  */
-class DisableOperation extends BaseOperation
+class ConfigOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		$this->response->message = new FormattedString('The cache %cache has been disabled.', array('cache' => $this->key));
+		$cache->config($this->request);
 
-		return $cache->disable();
+		$this->response->message = new FormattedString('The cache %cache has been configured.', [ 'cache' => $this->key ]);
+
+		return $cache->config_preview;
 	}
 }

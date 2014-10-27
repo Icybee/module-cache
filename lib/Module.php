@@ -25,19 +25,21 @@ class Module extends \Icybee\Module
 
 			if (!file_exists($path))
 			{
-				return array
-				(
-					0, '<span class="warning">Impossible de créer le dossier&nbsp: <em>' . \ICanBoogie\strip_root($path) . '</em></span>'
-				);
+				return [
+
+					0, '<span class="warning">' . I18n\t("Unable to create directory: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
+
+				];
 			}
 		}
 
 		if (!is_writable($path))
 		{
-			return array
-			(
-				0, '<span class="warning">Dossier vérouillé en écriture&nbsp: <em>' . \ICanBoogie\strip_root($path) . '</em></span>'
-			);
+			return [
+
+				0, '<span class="warning">' . I18n\t("The directory is not writable: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
+
+			];
 		}
 
 		$n = 0;
@@ -62,10 +64,11 @@ class Module extends \Icybee\Module
 			$size += $file->getSize();
 		}
 
-		return array
-		(
-			$n, I18n\t(':count files<br /><span class="small">:size</span>', array(':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size)))
-		);
+		return [
+
+			$n, I18n\t(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
+
+		];
 	}
 
 	static public function get_vars_stat($regex)
@@ -81,16 +84,17 @@ class Module extends \Icybee\Module
 			$size += $fileinfo->getSize();
 		}
 
-		return array
-		(
-			$n, I18n\t(':count files<br /><span class="small">:size</span>', array(':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size)))
-		);
+		return [
+
+			$n, I18n\t(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
+
+		];
 	}
 
 	/**
 	 * Deletes files in a directory according to a RegEx pattern.
 	 *
-	 * @param string $path Path to the directory where the files shoud be deleted.
+	 * @param string $path Path to the directory where the files should be deleted.
 	 * @param string|null $pattern RegEx pattern to delete matching files, or null to delete all
 	 * files.
 	 */

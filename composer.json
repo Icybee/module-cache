@@ -16,13 +16,18 @@
 		"issues": "https://github.com/Icybee/module-cache/issues",
 		"source": "https://github.com/Icybee/module-cache"
 	},
-	"minimum-stability": "dev",
 	"require": {
-		"php": ">=5.3.0",
-		"icanboogie/module-installer": "*",
-		"icanboogie/operation": "2.x"
+		"php": ">=5.4.0",
+		"icanboogie/module-installer": "~1.2",
+		"icanboogie/i18n": "~2.0",
+		"icanboogie/operation": "~2.0"
 	},
 	"autoload": {
-		"classmap": [ "lib" ]
+		"psr-4": { "Icybee\\Modules\\Cache\\": "lib" }
+	},
+	"extra": {
+		"icanboogie": {
+			"config-path": "config"
+		}
 	}
 }

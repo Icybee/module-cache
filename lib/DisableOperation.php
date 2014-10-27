@@ -11,19 +11,19 @@
 
 namespace Icybee\Modules\Cache;
 
+use ICanBoogie\I18n\FormattedString;
+
 /**
- * Returns the usage (memory, files) of the specified cache.
+ * Disables the specified cache.
  */
-class StatOperation extends BaseOperation
+class DisableOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		list($count, $label) = $cache->stat();
+		$this->response->message = new FormattedString('The cache %cache has been disabled.', [ 'cache' => $this->key ]);
 
-		$this->response['count'] = (int) $count;
-
-		return $label;
+		return $cache->disable();
 	}
 }

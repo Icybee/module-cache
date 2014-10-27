@@ -14,18 +14,18 @@ namespace Icybee\Modules\Cache;
 use ICanBoogie\I18n\FormattedString;
 
 /**
- * Configures the specified cache.
+ * Clears the specified cache.
  */
-class ConfigOperation extends BaseOperation
+class ClearOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		$cache->config($this->request);
+		$cache->clear();
 
-		$this->response->message = new FormattedString('The cache %cache has been configured.', array('cache' => $this->key));
+		$this->response->message = new FormattedString('The cache %cache has been cleared.', [ 'cache' => $this->key ]);
 
-		return $cache->config_preview;
+		return $cache->stat();
 	}
 }

@@ -9,15 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\CacheManager;
+
+use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\Module;
 
 /**
  * Catalogs cache manager.
  */
-class CatalogsCacheManager extends CacheManager
+class Catalogs extends CacheManager
 {
-	public $title = "Traductions";
-	public $description = "Traductions par langue pour l'ensemble du framework.";
+	public $title = "Translations";
+	public $description = "Translation catalogs for the I18n component.";
 	public $group = 'system';
 
 	public function __construct()

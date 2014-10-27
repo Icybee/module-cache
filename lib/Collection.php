@@ -12,7 +12,6 @@
 namespace Icybee\Modules\Cache;
 
 use ICanBoogie\OffsetNotWritable;
-use ICanBoogie\OffsetNotReadable;
 
 /**
  * Cache manager collection.
@@ -31,16 +30,17 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 		return self::$instance = new static();
 	}
 
-	protected $collection = array();
+	protected $collection = [];
 
 	protected function __construct()
 	{
-		$collection = array
-		(
-			'core.catalogs' => new CatalogsCacheManager,
-			'core.configs' => new ConfigsCacheManager,
-			'core.modules' => new ModulesCacheManager
-		);
+		$collection = [
+
+			'core.catalogs' => new CacheManager\Catalogs,
+			'core.configs' => new CacheManager\Configs,
+			'core.modules' => new CacheManager\Modules
+
+		];
 
 		new Collection\CollectEvent($this, $collection);
 
@@ -97,42 +97,6 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetUnset($offset)
 	{
-		throw new OffsetNotWritable(array($offset, $this));
-	}
-}
-
-/**
- * Exception thrown when a cache is not defined.
- */
-class CacheNotDefined extends OffsetNotWritable
-{
-
-}
-
-namespace Icybee\Modules\Cache\Collection;
-
-/**
- * Event class for the `Icybee\Modules\Cache\Collection::collect` event.
- */
-class CollectEvent extends \ICanBoogie\Event
-{
-	/**
-	 * Reference to the cache manager collection.
-	 *
-	 * @var array
-	 */
-	public $collection;
-
-	/**
-	 * The event is constructed with the type `collect`.
-	 *
-	 * @param \Icybee\Modules\Cache\Collection $target
-	 * @param array $collection Cache manager collection.
-	 */
-	public function __construct(\Icybee\Modules\Cache\Collection $target, array &$collection)
-	{
-		$this->collection = &$collection;
-
-		parent::__construct($target, 'collect');
+		throw new OffsetNotWritable([ $offset, $this ]);
 	}
 }

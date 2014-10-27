@@ -12,32 +12,6 @@
 namespace Icybee\Modules\Cache;
 
 /**
- * Cache interface.
- */
-interface CacheManagerInterface
-{
-	/**
-	 * Clears the cache.
-	 */
-	public function clear();
-
-	/**
-	 * Disables the cache.
-	 */
-	public function disable();
-
-	/**
-	 * Enables the cache.
-	 */
-	public function enable();
-
-	/**
-	 * Return stats about the cache.
-	 */
-	public function stat();
-}
-
-/**
  * Cache.
  */
 abstract class CacheManager implements CacheManagerInterface

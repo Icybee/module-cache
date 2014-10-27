@@ -24,13 +24,14 @@ class EditorOperation extends BaseOperation
 	{
 		$cache = $this->collection[$this->key];
 
-		return (string) new Popover(array
-		(
+		return (string) new Popover([
+
 			Popover::INNER_HTML => (string) $cache->editor,
 			Popover::ACTIONS => 'boolean',
 			Popover::FIT_CONTENT => true,
 
 			'class' => 'popover contrast'
-		));
+
+		]);
 	}
 }

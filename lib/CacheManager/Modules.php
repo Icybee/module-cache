@@ -9,17 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\CacheManager;
+
+use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\Module;
 
 /**
  * Modules cache manager.
  */
-class ModulesCacheManager extends CacheManager
+class Modules extends CacheManager
 {
 	const REGEX = '/^cached_modules_/';
 
 	public $title = "Modules";
-	public $description = "Index des modules disponibles pour le framework.";
+	public $description = "Modules index.";
 	public $group = 'system';
 
 	public function __construct()
