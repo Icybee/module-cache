@@ -25,9 +25,7 @@ class Configs extends CacheManager
 
 	public function __construct()
 	{
-		global $core;
-
-		$this->state = $core->config['cache configs'];
+		$this->state = $this->app->config['cache configs'];
 	}
 
 	/**
@@ -67,9 +65,7 @@ class Configs extends CacheManager
 	 */
 	public function disable()
 	{
-		global $core;
-
-		unset($core->vars['enable_configs_cache']);
+		unset($this->app->vars['enable_configs_cache']);
 
 		return true;
 	}
@@ -81,9 +77,7 @@ class Configs extends CacheManager
 	 */
 	public function enable()
 	{
-		global $core;
-
-		$core->vars['enable_configs_cache'] = true;
+		$this->app->vars['enable_configs_cache'] = true;
 
 		return true;
 	}

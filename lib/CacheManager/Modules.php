@@ -27,9 +27,7 @@ class Modules extends CacheManager
 
 	public function __construct()
 	{
-		global $core;
-
-		$this->state = $core->config['cache modules'];
+		$this->state = $this->app->config['cache modules'];
 	}
 
 	/**
@@ -37,9 +35,7 @@ class Modules extends CacheManager
 	 */
 	public function clear()
 	{
-		global $core;
-
-		$iterator = $core->vars->matching(self::REGEX);
+		$iterator = $this->app->vars->matching(self::REGEX);
 		$iterator->delete();
 
 		return true;
@@ -52,9 +48,7 @@ class Modules extends CacheManager
 	 */
 	public function disable()
 	{
-		global $core;
-
-		unset($core->vars['enable_modules_cache']);
+		unset($this->app->vars['enable_modules_cache']);
 
 		return true;
 	}
@@ -66,9 +60,7 @@ class Modules extends CacheManager
 	 */
 	public function enable()
 	{
-		global $core;
-
-		$core->vars['enable_modules_cache'] = true;
+		$this->app->vars['enable_modules_cache'] = true;
 
 		return true;
 	}

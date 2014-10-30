@@ -11,11 +11,17 @@
 
 namespace Icybee\Modules\Cache;
 
+use ICanBoogie\GetterTrait;
+
 /**
  * Cache.
+ *
+ * @property-read \ICanBoogie\Core $app
  */
 abstract class CacheManager implements CacheManagerInterface
 {
+	use GetterTrait;
+
 	/**
 	 * Title of the cache. The title is translated within the `cache.title` scope.
 	 *
@@ -73,4 +79,9 @@ abstract class CacheManager implements CacheManagerInterface
 	 * @var string|null
 	 */
 	public $editor;
+
+	protected function get_app()
+	{
+		return \ICanBoogie\app();
+	}
 }

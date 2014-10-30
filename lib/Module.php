@@ -73,12 +73,10 @@ class Module extends \Icybee\Module
 
 	static public function get_vars_stat($regex)
 	{
-		global $core;
-
 		$n = 0;
 		$size = 0;
 
-		foreach ($core->vars->matching($regex) as $pathname => $fileinfo)
+		foreach (\ICanBoogie\app()->vars->matching($regex) as $pathname => $fileinfo)
 		{
 			++$n;
 			$size += $fileinfo->getSize();

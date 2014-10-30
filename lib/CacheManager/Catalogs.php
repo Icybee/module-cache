@@ -25,9 +25,7 @@ class Catalogs extends CacheManager
 
 	public function __construct()
 	{
-		global $core;
-
-		$this->state = $core->config['cache catalogs'];
+		$this->state = $this->app->config['cache catalogs'];
 	}
 
 	/**
@@ -35,8 +33,6 @@ class Catalogs extends CacheManager
 	 */
 	public function clear()
 	{
-		global $core;
-
 		$files = glob(\ICanBoogie\REPOSITORY . 'cache/core/i18n_*');
 
 		foreach ($files as $file)
@@ -54,9 +50,7 @@ class Catalogs extends CacheManager
 	 */
 	public function disable()
 	{
-		global $core;
-
-		unset($core->vars['enable_catalogs_cache']);
+		unset($this->app->vars['enable_catalogs_cache']);
 
 		return true;
 	}
@@ -68,9 +62,7 @@ class Catalogs extends CacheManager
 	 */
 	public function enable()
 	{
-		global $core;
-
-		$core->vars['enable_catalogs_cache'] = true;
+		$this->app->vars['enable_catalogs_cache'] = true;
 
 		return true;
 	}
