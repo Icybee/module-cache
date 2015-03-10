@@ -11,7 +11,7 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\GetterTrait;
+use ICanBoogie\Accessor\AccessorTrait;
 
 /**
  * Cache.
@@ -20,7 +20,7 @@ use ICanBoogie\GetterTrait;
  */
 abstract class CacheManager implements CacheManagerInterface
 {
-	use GetterTrait;
+	use AccessorTrait;
 
 	/**
 	 * Title of the cache. The title is translated within the `cache.title` scope.

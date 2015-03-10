@@ -11,6 +11,8 @@
 
 namespace Icybee\Modules\Cache;
 
+use ICanBoogie\OffsetNotWritable;
+
 /**
  * Exception thrown when a cache is not defined.
  */

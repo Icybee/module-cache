@@ -38,11 +38,12 @@ getters to return their values:
 ```php
 <?php
 
+use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\PropertyNotDefined;
 
 class CacheManager implements Icybee\Modules\Cache\CacheManagerInterface
 {
-	use \ICanBoogie\GetterTrait;
+	use AccessorTrait;
 
 	protected function get_config_preview()
 	{
