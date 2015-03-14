@@ -135,15 +135,15 @@ class Hooks
 
 
 
-### `ICanBoogie\Core\volatile_get_caches`
+### `ICanBoogie\Core\get_caches`
 
-The `volatile_get_caches` getter is added to instances of the `ICanBoogie\Core` class, it returns
+The `get_caches` getter is added to instances of the `ICanBoogie\Core` class, it returns
 the cache collection.
 
 ```php
 <?php
 
-$core->caches['core.modules']->clear();
+$app->caches['core.modules']->clear();
 ```
 
 
