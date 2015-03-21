@@ -14,9 +14,11 @@ namespace Icybee\Modules\Cache\ManageBlock;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
+use Icybee\Modules\Cache\CacheManagerInterface;
+
 class UsageColumn extends ListViewColumn
 {
-	public function __construct(ListView $listview, $id, array $options=[])
+	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
@@ -25,6 +27,11 @@ class UsageColumn extends ListViewColumn
 		]);
 	}
 
+	/**
+	 * @param CacheManagerInterface $cache
+	 *
+	 * @inheritdoc
+	 */
 	public function render_cell($cache)
 	{
 		list($n, $stat) = $cache->stat();

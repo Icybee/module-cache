@@ -65,6 +65,8 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 	/**
 	 * Returns a cache.
 	 *
+	 * @inheritdoc
+	 *
 	 * @throws CacheNotDefined in attempt to get a cache manager that is not defined.
 	 */
 	public function offsetGet($id)
@@ -80,7 +82,9 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 	/**
 	 * Adds a cache to the collection.
 	 *
-	 * @throws InvalidArgumentException if the cache manage doesn't implement {@link CacheManagerInterface}.
+	 * @inheritdoc
+	 *
+	 * @throws \InvalidArgumentException if the cache manage doesn't implement {@link CacheManagerInterface}.
 	 */
 	public function offsetSet($id, $cache)
 	{
@@ -93,6 +97,8 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 	}
 
 	/**
+	 * @inheritdoc
+	 *
 	 * @throws OffsetNotWritable in attempt to unset an offset.
 	 */
 	public function offsetUnset($offset)

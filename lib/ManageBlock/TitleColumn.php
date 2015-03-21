@@ -16,9 +16,11 @@ use ICanBoogie\I18n;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
+use Icybee\Modules\Cache\CacheManagerInterface;
+
 class TitleColumn extends ListViewColumn
 {
-	public function __construct(ListView $listview, $id, array $options=[])
+	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
@@ -27,6 +29,11 @@ class TitleColumn extends ListViewColumn
 		]);
 	}
 
+	/**
+	 * @param CacheManagerInterface $cache
+	 *
+	 * @inheritdoc
+	 */
 	public function render_cell($cache)
 	{
 		$title = I18n\t($cache->title, [], [ 'scope' => 'cache.title' ]);

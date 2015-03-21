@@ -17,10 +17,10 @@
 		"source": "https://github.com/Icybee/module-cache"
 	},
 	"require": {
-		"php": ">=5.4.0",
-		"icanboogie/module-installer": "~1.2",
+		"php": ">=5.5.0",
+		"icanboogie/module-installer": "~1.2.3",
 		"icanboogie/i18n": "~2.0",
-		"icanboogie/operation": "~2.0"
+		"icanboogie/operation": "~2.1.1"
 	},
 	"autoload": {
 		"psr-4": { "Icybee\\Modules\\Cache\\": "lib" }

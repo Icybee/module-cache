@@ -95,6 +95,8 @@ class Module extends \Icybee\Module
 	 * @param string $path Path to the directory where the files should be deleted.
 	 * @param string|null $pattern RegEx pattern to delete matching files, or null to delete all
 	 * files.
+	 *
+	 * @return int
 	 */
 	static public function clear_files($path, $pattern=null)
 	{

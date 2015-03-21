@@ -14,9 +14,11 @@ namespace Icybee\Modules\Cache\ManageBlock;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
+use Icybee\Modules\Cache\CacheManagerInterface;
+
 class ConfigurationColumn extends ListViewColumn
 {
-	public function __construct(ListView $listview, $id, array $options=[])
+	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
@@ -25,13 +27,18 @@ class ConfigurationColumn extends ListViewColumn
 		]);
 	}
 
+	/**
+	 * @param CacheManagerInterface $cache
+	 *
+	 * @inheritdoc
+	 */
 	public function render_cell($cache)
 	{
 		$config_preview = $cache->config_preview;
 
 		if (!$config_preview)
 		{
-			return;
+			return null;
 		}
 
 		return '<span title="Configure the cache" class="spinner" tabindex="0">' . $config_preview . '</span>';

@@ -11,11 +11,18 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\I18n;
+use Brickrouge\Document;
+use Brickrouge\ListView;
 
-class ManageBlock extends \Brickrouge\ListView
+use Icybee\Modules\Cache\ManageBlock\ClearColumn;
+use Icybee\Modules\Cache\ManageBlock\ConfigurationColumn;
+use Icybee\Modules\Cache\ManageBlock\IsActiveColumn;
+use Icybee\Modules\Cache\ManageBlock\TitleColumn;
+use Icybee\Modules\Cache\ManageBlock\UsageColumn;
+
+class ManageBlock extends ListView
 {
-	static public function add_assets(\Brickrouge\Document $document)
+	static public function add_assets(Document $document)
 	{
 		parent::add_assets($document);
 
@@ -33,7 +40,7 @@ class ManageBlock extends \Brickrouge\ListView
 	 */
 	protected $collection;
 
-	public function __construct(Module $module, array $attributes=[])
+	public function __construct(Module $module, array $attributes = [])
 	{
 		$this->module = $module;
 		$this->collection = Collection::get();
@@ -42,11 +49,11 @@ class ManageBlock extends \Brickrouge\ListView
 
 			self::COLUMNS => [
 
-				'is_active' => __CLASS__ . '\IsActiveColumn',
-				'title' => __CLASS__ . '\TitleColumn',
-				'configuration' => __CLASS__ . '\ConfigurationColumn',
-				'usage' => __CLASS__ . '\UsageColumn',
-				'clear' => __CLASS__ . '\ClearColumn'
+				'is_active' => IsActiveColumn::class,
+				'title' => TitleColumn::class,
+				'configuration' => ConfigurationColumn::class,
+				'usage' => UsageColumn::class,
+				'clear' => ClearColumn::class
 
 			],
 
@@ -77,7 +84,7 @@ class ManageBlock extends \Brickrouge\ListView
 		foreach ($rendered_rows as $i => $row)
 		{
 			$cache = $entries[$i];
-			$group_title = I18n\t(ucfirst($cache->group), [], [ 'scope' => 'cache.group' ]);
+			$group_title = $this->t(ucfirst($cache->group), [], [ 'scope' => 'cache.group' ]);
 			$grouped[$group_title][$i] = $row;
 		}
 

@@ -29,7 +29,7 @@ class Hooks
 	/**
 	 * Clears ICanBoogie caches on modules change.
 	 *
-	 * @param Event $event
+	 * @param Operation\ProcessEvent $event
 	 */
 	static public function on_modules_change(Operation\ProcessEvent $event)
 	{

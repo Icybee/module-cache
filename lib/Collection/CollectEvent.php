@@ -11,12 +11,13 @@
 
 namespace Icybee\Modules\Cache\Collection;
 
+use ICanBoogie\Event;
 use Icybee\Modules\Cache\Collection;
 
 /**
  * Event class for the `Icybee\Modules\Cache\Collection::collect` event.
  */
-class CollectEvent extends \ICanBoogie\Event
+class CollectEvent extends Event
 {
 	/**
 	 * Reference to the cache manager collection.

@@ -17,7 +17,7 @@ use Brickrouge\ListViewColumn;
 
 class ClearColumn extends ListViewColumn
 {
-	public function __construct(ListView $listview, $id, array $options=[])
+	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
