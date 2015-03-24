@@ -103,7 +103,14 @@ EOT;
 			{
 				$cache = $entries[$i];
 
-				list($n, $stat) = $cache->stat();
+				try
+				{
+					list($n, $stat) = $cache->stat();
+				}
+				catch (\Exception $e)
+				{
+					$n = null;
+				}
 
 				if (!$n)
 				{
