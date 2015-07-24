@@ -16,7 +16,6 @@ return [
 	],
 
 	Descriptor::REQUIRED => true,
-	Descriptor::TITLE => 'Cache',
-	Descriptor::VERSION => '1.0'
+	Descriptor::TITLE => "Cache"
 
 ];
