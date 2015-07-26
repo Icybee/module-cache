@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Routing;
 
-use Icybee\Routing\RouteMaker as Make;
+use Icybee\Routing\AdminController;
 
-return Make::admin('cache', Routing\CacheAdminController::class, [
+class CacheAdminController extends AdminController
+{
 
-	'only' => 'index'
-
-]);
+}
