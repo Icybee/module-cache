@@ -14,7 +14,7 @@ namespace Icybee\Modules\Cache;
 use ICanBoogie\Errors;
 
 /**
- * @property-read Collection $collection Caches collection.
+ * @property-read CacheCollection $collection Caches collection.
  */
 abstract class BaseOperation extends \ICanBoogie\Operation
 {
@@ -29,7 +29,7 @@ abstract class BaseOperation extends \ICanBoogie\Operation
 
 	protected function get_collection()
 	{
-		return Collection::get();
+		return CacheCollection::get();
 	}
 
 	protected function validate(Errors $errors)

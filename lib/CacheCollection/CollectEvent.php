@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache\Collection;
+namespace Icybee\Modules\Cache\CacheCollection;
 
 use ICanBoogie\Event;
-use Icybee\Modules\Cache\Collection;
+use Icybee\Modules\Cache\CacheCollection;
 
 /**
- * Event class for the `Icybee\Modules\Cache\Collection::collect` event.
+ * Event class for the `Icybee\Modules\Cache\CacheCollection::collect` event.
  */
 class CollectEvent extends Event
 {
@@ -29,10 +29,10 @@ class CollectEvent extends Event
 	/**
 	 * The event is constructed with the type `collect`.
 	 *
-	 * @param Collection $target
+	 * @param CacheCollection $target
 	 * @param array $collection Cache manager collection.
 	 */
-	public function __construct(Collection $target, array &$collection)
+	public function __construct(CacheCollection $target, array &$collection)
 	{
 		$this->collection = &$collection;
 

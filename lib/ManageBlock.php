@@ -36,14 +36,14 @@ class ManageBlock extends ListView
 	/**
 	 * Cache collection.
 	 *
-	 * @var Collection
+	 * @var CacheCollection
 	 */
 	protected $collection;
 
 	public function __construct(Module $module, array $attributes = [])
 	{
 		$this->module = $module;
-		$this->collection = Collection::get();
+		$this->collection = CacheCollection::get();
 
 		parent::__construct($attributes + [
 

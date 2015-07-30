@@ -2,7 +2,7 @@
 
 namespace Icybee\Modules\Cache;
 
-$hooks = __NAMESPACE__ . '\Hooks::';
+$hooks = Hooks::class . '::';
 
 return [
 
@@ -15,7 +15,7 @@ return [
 
 	'prototypes' => [
 
-		'ICanBoogie\Core::get_caches' => __NAMESPACE__ . '\Collection::get'
+		'ICanBoogie\Core::get_caches' => CacheCollection::class . '::get'
 
 	]
 

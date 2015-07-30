@@ -63,7 +63,7 @@ class CacheManager implements Icybee\Modules\Cache\CacheManagerInterface
 
 ### Registering your cache manager
 
-Cache managers are registered on the `Icybee\Modules\Cache\Collection::collect` event. For
+Cache managers are registered on the `Icybee\Modules\Cache\CacheCollection::collect` event. For
 instance, this is how the "views" module registers its cache manager using the `hooks`
 configuration:
 
@@ -80,7 +80,7 @@ return array
 (
 	'events' => array
 	(
-		'Icybee\Modules\Cache\Collection::collect' => $hooks . 'on_cache_collection_collect',
+		'Icybee\Modules\Cache\CacheCollection::collect' => $hooks . 'on_cache_collection_collect',
 
 		// ...
 	),
@@ -98,9 +98,9 @@ return array
 
 
 
-### Icybee\Modules\Cache\Collection::collect
+### Icybee\Modules\Cache\CacheCollection::collect
 
-Third parties may use the event of class `Icybee\Modules\Cache\Collection\CollectEvent` to
+Third parties may use the event of class `Icybee\Modules\Cache\CacheCollection\CollectEvent` to
 register their cache manager. The event is fired during the construct of the cache collection.
 
 The following code is an example of how the `icybee.views` cache is added to the cache collection:
@@ -110,7 +110,7 @@ The following code is an example of how the `icybee.views` cache is added to the
 
 namespace Icybee\Modules\Views;
 
-use Icybee\Modules\Cache\Collection as CacheCollection;
+use Icybee\Modules\Cache\CacheCollection as CacheCollection;
 
 class Hooks
 {

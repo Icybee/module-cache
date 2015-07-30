@@ -16,7 +16,7 @@ use ICanBoogie\OffsetNotWritable;
 /**
  * Cache manager collection.
  */
-class Collection implements \IteratorAggregate, \ArrayAccess
+class CacheCollection implements \IteratorAggregate, \ArrayAccess
 {
 	static private $instance;
 
@@ -42,7 +42,7 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 
 		];
 
-		new Collection\CollectEvent($this, $collection);
+		new CacheCollection\CollectEvent($this, $collection);
 
 		foreach ($collection as $id => $cache)
 		{
@@ -90,7 +90,7 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 	{
 		if (!($cache instanceof CacheManagerInterface))
 		{
-			throw new \InvalidArgumentException('Cache must implements ' . __NAMESPACE__ . '\CacheManagerInterface.');
+			throw new \InvalidArgumentException('Cache must implements ' . CacheManagerInterface::class . '.');
 		}
 
 		$this->collection[$id] = $cache;
