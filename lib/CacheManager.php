@@ -13,6 +13,12 @@ namespace Icybee\Modules\Cache;
 
 /**
  * Cache manager interface.
+ *
+ * @property string $config_preview
+ * @property string $description
+ * @property string $id
+ * @property bool $state
+ * @property string $title
  */
 interface CacheManager
 {
