@@ -17,7 +17,7 @@ The module comes with cache managers for the framework [ICanBoogie](http://icanb
 ### Creating your own cache manager
 
 You can use any kind of cache with the "cache" module, your manager only has to extends the
-`CacheManager` class or implement the `CacheManagerInterface` interface.
+`CacheManagerBase` class or implement the `CacheManager` interface.
 
 The following properties must also be provided:
 
@@ -41,7 +41,7 @@ getters to return their values:
 use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\PropertyNotDefined;
 
-class CacheManager implements Icybee\Modules\Cache\CacheManagerInterface
+class CacheManagerBase implements Icybee\Modules\Cache\CacheManager
 {
 	use AccessorTrait;
 
@@ -118,7 +118,7 @@ class Hooks
 
 	static public function on_cache_collection_collect(CacheCollection\CollectEvent $event, CacheCollection $collection)
 	{
-		$event->collection['icybee.views'] = new CacheManager;
+		$event->collection['icybee.views'] = new ViewCacheManager;
 	}
 
 	// …

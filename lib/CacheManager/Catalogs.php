@@ -11,13 +11,13 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
-use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
 /**
  * Catalogs cache manager.
  */
-class Catalogs extends CacheManager
+class Catalogs extends CacheManagerBase
 {
 	public $title = "Translations";
 	public $description = "Translation catalogs for the I18n component.";

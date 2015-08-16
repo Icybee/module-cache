@@ -16,7 +16,7 @@ use ICanBoogie\I18n;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
-use Icybee\Modules\Cache\CacheManagerInterface;
+use Icybee\Modules\Cache\CacheManager;
 
 class TitleColumn extends ListViewColumn
 {
@@ -30,14 +30,14 @@ class TitleColumn extends ListViewColumn
 	}
 
 	/**
-	 * @param CacheManagerInterface $cache
+	 * @param CacheManager $cache
 	 *
 	 * @inheritdoc
 	 */
 	public function render_cell($cache)
 	{
-		$title = I18n\t($cache->title, [], [ 'scope' => 'cache.title' ]);
-		$description = I18n\t($cache->description, [], [ 'scope' => 'cache.description' ]);
+		$title = $this->t($cache->title, [], [ 'scope' => 'cache.title' ]);
+		$description = $this->t($cache->description, [], [ 'scope' => 'cache.description' ]);
 
 		return <<<EOT
 $title<div class="element-description">$description</div>

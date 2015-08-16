@@ -14,7 +14,7 @@ namespace Icybee\Modules\Cache\ManageBlock;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
-use Icybee\Modules\Cache\CacheManagerInterface;
+use Icybee\Modules\Cache\CacheManager;
 use Icybee\WrappedCheckbox;
 
 class IsActiveColumn extends ListViewColumn
@@ -30,7 +30,7 @@ class IsActiveColumn extends ListViewColumn
 	}
 
 	/**
-	 * @param CacheManagerInterface $cache
+	 * @param CacheManager $cache
 	 *
 	 * @inheritdoc
 	 */

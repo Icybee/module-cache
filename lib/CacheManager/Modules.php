@@ -11,13 +11,13 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
-use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
 /**
  * Modules cache manager.
  */
-class Modules extends CacheManager
+class Modules extends CacheManagerBase
 {
 	const REGEX = '/^cached_modules_/';
 

@@ -84,13 +84,13 @@ class CacheCollection implements \IteratorAggregate, \ArrayAccess
 	 *
 	 * @inheritdoc
 	 *
-	 * @throws \InvalidArgumentException if the cache manage doesn't implement {@link CacheManagerInterface}.
+	 * @throws \InvalidArgumentException if the cache manage doesn't implement {@link CacheManager}.
 	 */
 	public function offsetSet($id, $cache)
 	{
-		if (!($cache instanceof CacheManagerInterface))
+		if (!($cache instanceof CacheManager))
 		{
-			throw new \InvalidArgumentException('Cache must implements ' . CacheManagerInterface::class . '.');
+			throw new \InvalidArgumentException('Cache must implements ' . CacheManager::class . '.');
 		}
 
 		$this->collection[$id] = $cache;

@@ -14,7 +14,7 @@ namespace Icybee\Modules\Cache\ManageBlock;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
-use Icybee\Modules\Cache\CacheManagerInterface;
+use Icybee\Modules\Cache\CacheManager;
 
 class UsageColumn extends ListViewColumn
 {
@@ -28,7 +28,7 @@ class UsageColumn extends ListViewColumn
 	}
 
 	/**
-	 * @param CacheManagerInterface $cache
+	 * @param CacheManager $cache
 	 *
 	 * @inheritdoc
 	 */

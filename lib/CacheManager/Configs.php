@@ -11,13 +11,13 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
-use Icybee\Modules\Cache\CacheManager;
+use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
 /**
  * Configurations cache manager.
  */
-class Configs extends CacheManager
+class Configs extends CacheManagerBase
 {
 	public $title = "Configurations";
 	public $description = "Configuration files of the framework components.";

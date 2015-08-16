@@ -17,17 +17,19 @@ class Module extends \Icybee\Module
 {
 	static public function get_files_stat($path, $pattern=null)
 	{
+		$app = self::app();
+
 		if (!file_exists($path))
 		{
 			set_error_handler(function () {});
-			$rc = mkdir($path, 0705, true);
+			mkdir($path, 0705, true);
 			restore_error_handler();
 
 			if (!file_exists($path))
 			{
 				return [
 
-					0, '<span class="warning">' . I18n\t("Unable to create directory: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
+					0, '<span class="warning">' . $app->translate("Unable to create directory: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
 
 				];
 			}
@@ -37,7 +39,7 @@ class Module extends \Icybee\Module
 		{
 			return [
 
-				0, '<span class="warning">' . I18n\t("The directory is not writable: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
+				0, '<span class="warning">' . $app->translate("The directory is not writable: %dir.", [ 'dir' => \ICanBoogie\strip_root($path) ]) . '</span>'
 
 			];
 		}
@@ -66,7 +68,7 @@ class Module extends \Icybee\Module
 
 		return [
 
-			$n, I18n\t(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
+			$n, $app->translate(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
 
 		];
 	}
@@ -75,8 +77,9 @@ class Module extends \Icybee\Module
 	{
 		$n = 0;
 		$size = 0;
+		$app = self::app();
 
-		foreach (\ICanBoogie\app()->vars->matching($regex) as $pathname => $fileinfo)
+		foreach ($app->vars->matching($regex) as $pathname => $fileinfo)
 		{
 			++$n;
 			$size += $fileinfo->getSize();
@@ -84,7 +87,7 @@ class Module extends \Icybee\Module
 
 		return [
 
-			$n, I18n\t(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
+			$n, $app->translate(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
 
 		];
 	}
@@ -127,5 +130,13 @@ class Module extends \Icybee\Module
 		}
 
 		return $n;
+	}
+
+	/**
+	 * @return \ICanBoogie\Core|\Icybee\Binding\CoreBindings
+	 */
+	static private function app()
+	{
+		return \ICanBoogie\app();
 	}
 }

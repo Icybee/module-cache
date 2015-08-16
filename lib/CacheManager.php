@@ -11,77 +11,28 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\Accessor\AccessorTrait;
-
 /**
- * Cache.
- *
- * @property-read \ICanBoogie\Core $app
+ * Cache manager interface.
  */
-abstract class CacheManager implements CacheManagerInterface
+interface CacheManager
 {
-	use AccessorTrait;
+	/**
+	 * Clears the cache.
+	 */
+	public function clear();
 
 	/**
-	 * Title of the cache. The title is translated within the `cache.title` scope.
-	 *
-	 * @var string
+	 * Disables the cache.
 	 */
-	public $title;
+	public function disable();
 
 	/**
-	 * Description of the cache. The description is translated within
-	 * the `cache.description` scope.
-	 *
-	 * @var string
+	 * Enables the cache.
 	 */
-	public $description;
+	public function enable();
 
 	/**
-	 * Caches are displayed by groups. The group of the cache can be defined using this property.
-	 * The group is translated within the `cache.group` scope.
-	 *
-	 * @var string
+	 * Return stats about the cache.
 	 */
-	public $group;
-
-	/**
-	 * Whether the cache is enabled.
-	 *
-	 * @var bool
-	 */
-	public $state = false;
-
-	/**
-	 * Size limit of the cache, or `false` if not applicable.
-	 *
-	 * @var int|bool
-	 */
-	public $size_limit = false;
-
-	/**
-	 * Time limit of the entries in the cache, or `false` if not applicable.
-	 *
-	 * @var int|bool
-	 */
-	public $time_limit = false;
-
-	/**
-	 * A preview of the cache configuration, or `null` if not applicable.
-	 *
-	 * @var string|null
-	 */
-	public $config_preview;
-
-	/**
-	 * The configuration editor, or `null` if not applicable.
-	 *
-	 * @var string|null
-	 */
-	public $editor;
-
-	protected function get_app()
-	{
-		return \ICanBoogie\app();
-	}
+	public function stat();
 }
