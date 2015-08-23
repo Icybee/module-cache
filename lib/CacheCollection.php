@@ -18,6 +18,9 @@ use ICanBoogie\OffsetNotWritable;
  */
 class CacheCollection implements \IteratorAggregate, \ArrayAccess
 {
+	/**
+	 * @var CacheCollection
+	 */
 	static private $instance;
 
 	static public function get()
@@ -30,6 +33,9 @@ class CacheCollection implements \IteratorAggregate, \ArrayAccess
 		return self::$instance = new static();
 	}
 
+	/**
+	 * @var CacheManager[]
+	 */
 	protected $collection = [];
 
 	protected function __construct()
