@@ -12,7 +12,6 @@
 namespace Icybee\Modules\Cache;
 
 use ICanBoogie;
-use Icybee;
 
 return [
 
