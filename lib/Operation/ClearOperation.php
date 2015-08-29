@@ -9,25 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Operation;
 
 /**
- * Configures the specified cache.
+ * Clears the specified cache.
  */
-class ConfigOperation extends BaseOperation
+class ClearOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		$cache->config($this->request);
+		$cache->clear();
 
-		$this->response->message = $this->format('The cache %cache has been configured.', [
+		$this->response->message = $this->format('The cache %cache has been cleared.', [
 
 			'cache' => $this->key
 
 		]);
 
-		return $cache->config_preview;
+		return $cache->stat();
 	}
 }

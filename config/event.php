@@ -17,7 +17,7 @@ $hooks = Hooks::class . '::';
 
 return [
 
-	Icybee\Modules\Modules\ActivateOperation::class . '::process' => $hooks . 'on_modules_change',
-	Icybee\Modules\Modules\DeactivateOperation::class . '::process' => $hooks . 'on_modules_change'
+	Icybee\Modules\Modules\Operation\ActivateOperation::class . '::process' => $hooks . 'on_modules_change',
+	Icybee\Modules\Modules\Operation\DeactivateOperation::class . '::process' => $hooks . 'on_modules_change'
 
 ];

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Operation;
 
 use Brickrouge\Popover;
 

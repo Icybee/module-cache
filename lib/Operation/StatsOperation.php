@@ -9,26 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Operation;
 
 /**
- * Enables the specified cache.
- *
- * The cache is cleared before it is enabled.
+ * Returns the usage (memory, files) of the specified cache.
  */
-class EnableOperation extends BaseOperation
+class StatOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
-		$cache->clear();
 
-		$this->response->message = $this->format('The cache %cache has been enabled.', [
+		list($count, $label) = $cache->stat();
 
-			'cache' => $this->key
+		$this->response['count'] = (int) $count;
 
-		]);
-
-		return $cache->enable();
+		return $label;
 	}
 }

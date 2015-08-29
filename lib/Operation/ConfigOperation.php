@@ -9,21 +9,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Operation;
 
 /**
- * Returns the usage (memory, files) of the specified cache.
+ * Configures the specified cache.
  */
-class StatOperation extends BaseOperation
+class ConfigOperation extends BaseOperation
 {
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
 
-		list($count, $label) = $cache->stat();
+		$cache->config($this->request);
 
-		$this->response['count'] = (int) $count;
+		$this->response->message = $this->format('The cache %cache has been configured.', [
 
-		return $label;
+			'cache' => $this->key
+
+		]);
+
+		return $cache->config_preview;
 	}
 }

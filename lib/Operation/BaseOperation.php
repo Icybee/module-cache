@@ -9,14 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Operation;
 
 use ICanBoogie\Errors;
+use ICanBoogie\Module;
+use ICanBoogie\Operation;
+
+use Icybee\Modules\Cache\CacheCollection;
 
 /**
  * @property-read CacheCollection $collection Caches collection.
  */
-abstract class BaseOperation extends \ICanBoogie\Operation
+abstract class BaseOperation extends Operation
 {
 	protected function get_controls()
 	{
