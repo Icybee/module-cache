@@ -1,7 +1,7 @@
 # customization
 
 PACKAGE_NAME = icybee/module-cache
-PACKAGE_VERSION = 2.1.0
+PACKAGE_VERSION = 3.0.0
 COMPOSER_ENV = COMPOSER_ROOT_VERSION=$(PACKAGE_VERSION)
 
 # do not edit the following lines
