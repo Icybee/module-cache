@@ -9,25 +9,33 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache\ManageBlock;
+namespace Icybee\Modules\Cache\Block\ManageBlock;
 
-use Brickrouge\Button;
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
-class ClearColumn extends ListViewColumn
+use Icybee\Modules\Cache\CacheManager;
+
+class UsageColumn extends ListViewColumn
 {
 	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
-			'title' => null
+			'title' => 'Usage'
 
 		]);
 	}
 
+	/**
+	 * @param CacheManager $cache
+	 *
+	 * @inheritdoc
+	 */
 	public function render_cell($cache)
 	{
-		return new Button('Clear', [ 'class' => 'btn-warning', 'name' => 'clear' ]);
+		list($n, $stat) = $cache->stat();
+
+		return $stat;
 	}
 }

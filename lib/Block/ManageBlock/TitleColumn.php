@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache\ManageBlock;
+namespace Icybee\Modules\Cache\Block\ManageBlock;
+
+use ICanBoogie\I18n;
 
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
 use Icybee\Modules\Cache\CacheManager;
-use Icybee\WrappedCheckbox;
 
-class IsActiveColumn extends ListViewColumn
+class TitleColumn extends ListViewColumn
 {
 	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
-			'title' => null
-
+			'title' => 'Cache type'
 
 		]);
 	}
@@ -36,16 +36,11 @@ class IsActiveColumn extends ListViewColumn
 	 */
 	public function render_cell($cache)
 	{
-		$checked = $cache->state;
+		$title = $this->t($cache->title, [], [ 'scope' => 'cache.title' ]);
+		$description = $this->t($cache->description, [], [ 'scope' => 'cache.description' ]);
 
-		return new WrappedCheckbox([
-
-			'checked' => $checked,
-			'disabled' => $cache->state === null,
-			'name' => $cache->id,
-			'title' => "Enable/disable the cache",
-			'class' => 'wrapped-checkbox circle'
-
-		]);
+		return <<<EOT
+$title<div class="element-description">$description</div>
+EOT;
 	}
 }

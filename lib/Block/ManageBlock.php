@@ -9,16 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace Icybee\Modules\Cache\Block;
 
 use Brickrouge\Document;
 use Brickrouge\ListView;
 
-use Icybee\Modules\Cache\ManageBlock\ClearColumn;
-use Icybee\Modules\Cache\ManageBlock\ConfigurationColumn;
-use Icybee\Modules\Cache\ManageBlock\IsActiveColumn;
-use Icybee\Modules\Cache\ManageBlock\TitleColumn;
-use Icybee\Modules\Cache\ManageBlock\UsageColumn;
+use Icybee\Modules\Cache\CacheCollection;
+use Icybee\Modules\Cache\Module;
 
 class ManageBlock extends ListView
 {
@@ -27,8 +24,8 @@ class ManageBlock extends ListView
 		parent::add_assets($document);
 
 		$document->css->add(\Icybee\ASSETS . 'css/manage.css');
-		$document->css->add(DIR . 'public/admin.css');
-		$document->js->add(DIR . 'public/admin.js');
+		$document->css->add(\Icybee\Modules\Cache\DIR . 'public/admin.css');
+		$document->js->add(\Icybee\Modules\Cache\DIR . 'public/admin.js');
 	}
 
 	protected $module;
@@ -49,11 +46,11 @@ class ManageBlock extends ListView
 
 			self::COLUMNS => [
 
-				'is_active' => IsActiveColumn::class,
-				'title' => TitleColumn::class,
-				'configuration' => ConfigurationColumn::class,
-				'usage' => UsageColumn::class,
-				'clear' => ClearColumn::class
+				'is_active' => ManageBlock\IsActiveColumn::class,
+				'title' => ManageBlock\TitleColumn::class,
+				'configuration' => ManageBlock\ConfigurationColumn::class,
+				'usage' => ManageBlock\UsageColumn::class,
+				'clear' => ManageBlock\ClearColumn::class
 
 			],
 

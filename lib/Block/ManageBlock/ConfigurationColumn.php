@@ -9,22 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache\ManageBlock;
-
-use ICanBoogie\I18n;
+namespace Icybee\Modules\Cache\Block\ManageBlock;
 
 use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
 use Icybee\Modules\Cache\CacheManager;
 
-class TitleColumn extends ListViewColumn
+class ConfigurationColumn extends ListViewColumn
 {
 	public function __construct(ListView $listview, $id, array $options = [])
 	{
 		parent::__construct($listview, $id, $options + [
 
-			'title' => 'Cache type'
+			'title' => 'Configuration'
 
 		]);
 	}
@@ -36,11 +34,13 @@ class TitleColumn extends ListViewColumn
 	 */
 	public function render_cell($cache)
 	{
-		$title = $this->t($cache->title, [], [ 'scope' => 'cache.title' ]);
-		$description = $this->t($cache->description, [], [ 'scope' => 'cache.description' ]);
+		$config_preview = $cache->config_preview;
 
-		return <<<EOT
-$title<div class="element-description">$description</div>
-EOT;
+		if (!$config_preview)
+		{
+			return null;
+		}
+
+		return '<span title="Configure the cache" class="spinner" tabindex="0">' . $config_preview . '</span>';
 	}
 }
