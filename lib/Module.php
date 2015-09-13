@@ -11,7 +11,7 @@
 
 namespace Icybee\Modules\Cache;
 
-use ICanBoogie\I18n;
+use ICanBoogie\Storage\Storage;
 
 class Module extends \Icybee\Module
 {
@@ -73,21 +73,40 @@ class Module extends \Icybee\Module
 		];
 	}
 
-	static public function get_vars_stat($regex)
+	static public function get_storage_stat(Storage $storage, $regex = null)
 	{
 		$n = 0;
 		$size = 0;
 		$app = self::app();
 
-		foreach ($app->vars->matching($regex) as $pathname => $fileinfo)
+		$iterator = $storage;
+
+		if ($regex)
 		{
-			++$n;
-			$size += $fileinfo->getSize();
+			$iterator = new \RegexIterator($iterator->getIterator(), $regex);
+		}
+
+		foreach ($iterator as $key)
+		{
+			$n++;
+			$value = $storage->retrieve($key);
+
+			if (!is_string($value))
+			{
+				$value = serialize($value);
+			}
+
+			$size += strlen($value);
 		}
 
 		return [
 
-			$n, $app->translate(':count files<br /><span class="small">:size</span>', [ ':count' => $n, 'size' => \ICanBoogie\I18n\format_size($size) ])
+			$n, $app->translate(':count items<br /><span class="small">:size</span>', [
+
+				':count' => $n,
+				'size' => \ICanBoogie\I18n\format_size($size)
+
+			])
 
 		];
 	}

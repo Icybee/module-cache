@@ -21,7 +21,8 @@
 		"php": ">=5.5.0",
 		"icanboogie/module-installer": "^1.2.3",
 		"icanboogie/i18n": "^2.0.8",
-		"icanboogie/operation": "^3.0.0"
+		"icanboogie/operation": "^3.0.0",
+		"icanboogie/storage": "^2.0.0"
 	},
 	"autoload": {
 		"psr-4": { "Icybee\\Modules\\Cache\\": "lib" }

@@ -11,9 +11,56 @@
 
 namespace Icybee\Modules\Cache;
 
+use ICanBoogie\HTTP\Request;
+use ICanBoogie\Operation;
+
+use Icybee\Modules\Cache\Operation\ClearOperation;
+use Icybee\Modules\Cache\Operation\DisableOperation;
+use Icybee\Modules\Cache\Operation\EnableOperation;
 use Icybee\Routing\RouteMaker as Make;
 
-return Make::admin('cache', Routing\CacheAdminController::class, [
+return [
+
+	'api:cache:enable' => [
+
+		'pattern' => '/api/cache/:cache_id/enabled',
+		'controller' => EnableOperation::class,
+		'via' => Request::METHOD_PUT,
+		'param_translation_list' => [
+
+			'cache_id' => Operation::KEY
+
+		]
+
+	],
+
+	'api:cache:disable' => [
+
+		'pattern' => '/api/cache/:cache_id/enabled',
+		'controller' => DisableOperation::class,
+		'via' => Request::METHOD_DELETE,
+		'param_translation_list' => [
+
+			'cache_id' => Operation::KEY
+
+		]
+
+	],
+
+	'api:cache:clear' => [
+
+		'pattern' => '/api/cache/:cache_id',
+		'controller' => ClearOperation::class,
+		'via' => Request::METHOD_DELETE,
+		'param_translation_list' => [
+
+			'cache_id' => Operation::KEY
+
+		]
+
+	]
+
+] + Make::admin('cache', Routing\CacheAdminController::class, [
 
 	'only' => 'index'
 

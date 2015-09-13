@@ -33,29 +33,7 @@ class Configs extends CacheManagerBase
 	 */
 	public function clear()
 	{
-		$path = $this->get_path();
-
-		if (!file_exists($path))
-		{
-			return 0;
-		}
-
-		$di = new \DirectoryIterator($path);
-		$n = 0;
-
-		foreach ($di as $file)
-		{
-			if (!$file->isFile())
-			{
-				continue;
-			}
-
-			$n++;
-
-			unlink($file->getPathname());
-		}
-
-		return $n;
+		$this->app->storage_for_configs->clear();
 	}
 
 	/**
@@ -87,11 +65,6 @@ class Configs extends CacheManagerBase
 	 */
 	public function stat()
 	{
-		return Module::get_files_stat($this->get_path());
-	}
-
-	private function get_path()
-	{
-		return \ICanBoogie\REPOSITORY . 'cache' . DIRECTORY_SEPARATOR . 'configs';
+		return Module::get_storage_stat($this->app->storage_for_configs);
 	}
 }

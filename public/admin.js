@@ -30,7 +30,8 @@ window.addEvent('domready', function() {
 
 			new Request.API({
 
-				url: 'cache/' + el.name + '/' + (el.checked ? 'enable' : 'disable')
+				url: 'cache/' + el.name + '/enabled',
+				method: el.checked ? 'PUT' : 'DELETE'
 
 			}).send()
 		},
@@ -39,7 +40,8 @@ window.addEvent('domready', function() {
 
 			var req = new Request.API({
 
-				url: 'cache/' + getCacheName(el) + '/clear',
+				url: 'cache/' + getCacheName(el),
+				method: 'DELETE',
 
 				onSuccess: function(response)
 				{

@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
+use ICanBoogie\Storage\Storage;
 use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
@@ -25,9 +26,15 @@ class Modules extends CacheManagerBase
 	public $description = "Modules index.";
 	public $group = 'system';
 
+	/**
+	 * @var Storage
+	 */
+	private $storage;
+
 	public function __construct()
 	{
 		$this->state = $this->app->config['cache modules'];
+		$this->storage = $this->app->vars;
 	}
 
 	/**
@@ -35,8 +42,14 @@ class Modules extends CacheManagerBase
 	 */
 	public function clear()
 	{
-		$iterator = $this->app->vars->matching(self::REGEX);
-		$iterator->delete();
+		$storage = $this->storage;
+		$iterator = $storage->getIterator();
+		$iterator = new \RegexIterator($iterator, self::REGEX);
+
+		foreach ($iterator as $key)
+		{
+			$storage->eliminate($key);
+		}
 
 		return true;
 	}
@@ -48,7 +61,7 @@ class Modules extends CacheManagerBase
 	 */
 	public function disable()
 	{
-		unset($this->app->vars['enable_modules_cache']);
+		unset($this->storage['enable_modules_cache']);
 
 		return true;
 	}
@@ -60,7 +73,7 @@ class Modules extends CacheManagerBase
 	 */
 	public function enable()
 	{
-		$this->app->vars['enable_modules_cache'] = true;
+		$this->storage['enable_modules_cache'] = true;
 
 		return true;
 	}
@@ -70,6 +83,6 @@ class Modules extends CacheManagerBase
 	 */
 	public function stat()
 	{
-		return Module::get_vars_stat(self::REGEX);
+		return Module::get_storage_stat($this->storage, self::REGEX);
 	}
 }
