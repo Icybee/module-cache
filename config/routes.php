@@ -58,6 +58,14 @@ return [
 
 		]
 
+	],
+
+	'api:cache:editor' => [
+
+		'pattern' => '/api/cache/:cache_id/editor',
+		'controller' => Routing\CacheAdminController::class . '#editor',
+		'via' => Request::METHOD_GET
+
 	]
 
 ] + Make::admin('cache', Routing\CacheAdminController::class, [

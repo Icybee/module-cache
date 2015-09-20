@@ -16,7 +16,7 @@ use Icybee\Modules\Cache\CacheCollection;
 /**
  * {@link \ICanBoogie\ActiveRecord} prototype bindings.
  *
- * @property CacheCollection $cache
+ * @property CacheCollection $caches
  */
 trait CoreBindings
 {

@@ -73,6 +73,8 @@ class CacheCollection implements \IteratorAggregate, \ArrayAccess
 	 *
 	 * @inheritdoc
 	 *
+	 * @return CacheManager
+	 *
 	 * @throws CacheNotDefined in attempt to get a cache manager that is not defined.
 	 */
 	public function offsetGet($id)

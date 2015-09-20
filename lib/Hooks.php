@@ -21,9 +21,21 @@ class Hooks
 	 */
 	static public function clear_modules_cache()
 	{
-		Request::from(Operation::encode('cache/core.modules/clear'))->post();
-		Request::from(Operation::encode('cache/core.configs/clear'))->post();
-		Request::from(Operation::encode('cache/core.catalogs/clear'))->post();
+		$app = self::app();
+		$caches = [ 'core.modules', 'core.configs', 'core.catalogs' ];
+		$route = $app->routes['api:cache:clear'];
+
+		foreach ($caches as $cache_id)
+		{
+			$request = Request::from([
+
+				'uri' => $route->format([ 'cache_id' => $cache_id ]),
+				'method' => $route->via
+
+			]);
+
+			$request();
+		}
 	}
 
 	/**
@@ -34,5 +46,17 @@ class Hooks
 	static public function on_modules_change(Operation\ProcessEvent $event)
 	{
 		self::clear_modules_cache();
+	}
+
+	/*
+	 * Support
+	 */
+
+	/**
+	 * @return \ICanBoogie\Core|\Icybee\Binding\Core\CoreBindings
+	 */
+	static private function app()
+	{
+		return \ICanBoogie\app();
 	}
 }

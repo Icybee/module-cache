@@ -73,12 +73,12 @@ window.addEvent('domready', function() {
 
 			popoverTrigger = cacheId
 
-			new Request.API
+			new Request
 			({
-				url: 'cache/' + cacheId + '/editor',
+				url: '/api/cache/' + cacheId + '/editor',
 				onSuccess: function(response)
 				{
-					popover = new Brickrouge.Popover(Elements.from(response.rc).shift(), {
+					popover = new Brickrouge.Popover(Elements.from(response).shift(), {
 
 						anchor: el,
 						placement: 'above',

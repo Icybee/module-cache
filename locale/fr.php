@@ -23,6 +23,14 @@ return [
 
 	],
 
+	':count items<br /><span class="small">:size</span>' => [
+
+		'none' => 'Le cache est vide',
+		'one' => 'Un élément<br /><span class="small">:size</span>',
+		'other' => ':count éléments<br /><span class="small">:size</span>'
+
+	],
+
 	':count records<br /><span class="small">:size</span>' => [
 
 		'none' => 'Le cache est vide',

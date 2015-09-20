@@ -11,11 +11,23 @@
 
 namespace Icybee\Modules\Cache\Operation;
 
+use ICanBoogie\Errors;
+
 /**
  * Clears the specified cache.
  */
 class ClearOperation extends BaseOperation
 {
+	protected function validate(Errors $errors)
+	{
+		if (!$this->key)
+		{
+			$errors->add('cache_id', "The cache identifier is required.");
+		}
+
+		return $errors;
+	}
+
 	protected function process()
 	{
 		$cache = $this->collection[$this->key];
