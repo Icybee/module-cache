@@ -15,7 +15,7 @@ use Brickrouge\ListView;
 use Brickrouge\ListViewColumn;
 
 use Icybee\Modules\Cache\CacheManager;
-use Icybee\WrappedCheckbox;
+use Icybee\Element\WrappedCheckbox;
 
 class IsActiveColumn extends ListViewColumn
 {
