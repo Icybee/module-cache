@@ -1,4 +1,5 @@
-.listview td {
+.listview td,
+.listview:not(.listview-interactive) th {
 	padding: 4px;
 	vertical-align: middle;
 }

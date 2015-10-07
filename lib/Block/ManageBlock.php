@@ -54,17 +54,17 @@ class ManageBlock extends ListView
 
 			],
 
-			self::ENTRIES => $this->collection
+			self::RECORDS => $this->collection
 
 		]);
 	}
 
-	protected function get_entries()
+	protected function get_records()
 	{
 		$indexed_entries = [];
 		$i = 0;
 
-		foreach (parent::get_entries() as $entry)
+		foreach (parent::get_records() as $entry)
 		{
 			$indexed_entries[$i++] = $entry;
 		}
@@ -75,7 +75,7 @@ class ManageBlock extends ListView
 	protected function render_rows(array $rows)
 	{
 		$rendered_rows = parent::render_rows($rows);
-		$entries = $this->entries;
+		$entries = $this->records;
 		$grouped = [];
 
 		foreach ($rendered_rows as $i => $row)
