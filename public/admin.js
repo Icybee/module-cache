@@ -118,5 +118,4 @@ window.addEvent('domready', function() {
 		}
 	})
 
-	Brickrouge.updateDocument()
 })
