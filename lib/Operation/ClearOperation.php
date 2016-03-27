@@ -11,14 +11,14 @@
 
 namespace Icybee\Modules\Cache\Operation;
 
-use ICanBoogie\Errors;
+use ICanBoogie\ErrorCollection;
 
 /**
  * Clears the specified cache.
  */
 class ClearOperation extends BaseOperation
 {
-	protected function validate(Errors $errors)
+	protected function validate(ErrorCollection $errors)
 	{
 		if (!$this->key)
 		{

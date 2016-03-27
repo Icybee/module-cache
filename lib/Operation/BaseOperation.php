@@ -11,7 +11,7 @@
 
 namespace Icybee\Modules\Cache\Operation;
 
-use ICanBoogie\Errors;
+use ICanBoogie\ErrorCollection;
 use ICanBoogie\Module;
 use ICanBoogie\Operation;
 
@@ -36,8 +36,8 @@ abstract class BaseOperation extends Operation
 		return CacheCollection::get();
 	}
 
-	protected function validate(Errors $errors)
+	protected function validate(ErrorCollection $errors)
 	{
-		return true;
+		return $errors;
 	}
 }
