@@ -1,121 +1,123 @@
-window.addEvent('domready', function() {
+Brickrouge.observeRunning(() => {
 
-	var block = document.body.getElement('.block--cache--manage')
-	, popover = null
-	, popoverTrigger = null
+	const block = document.body.querySelector('.block--cache--manage')
 
+	let popover = null
+	let popoverTrigger = null
+
+	/**
+	 * @param {Element} el
+	 *
+	 * @returns {string}
+	 */
 	function getCacheName(el)
 	{
-		return el.getParent('tr').get('data-entry-key')
+		return el.closest('tr').getAttribute('data-entry-key')
 	}
 
-	function updateStat(el)
+	/**
+	 * @param {string} html
+	 *
+	 * @returns {Element}
+	 */
+	function createElement(html)
 	{
+		const proxy = document.createElement('div')
+
+		proxy.innerHTML = html
+
+		return proxy.firstElementChild
+	}
+
+	block.addDelegatedEventListener('td.cell--is-active input', 'click', (ev, el) => {
+
 		new Request.API({
 
-			url: 'cache/' + getCacheName(el) + '/stat',
+			url: `cache/${el.name}/enabled`,
+			method: el.checked ? 'PUT' : 'DELETE'
 
-			onSuccess: function(response)
-			{
-				el.getParent('tr')[(response.count ? 'remove' : 'add') + 'Class']('empty')
-				el.innerHTML = response.rc
+		}).send()
+
+	})
+
+	block.addDelegatedEventListener('button[name="clear"]', 'click', (ev, el) => {
+
+		new Request.API({
+
+			url: 'cache/' + getCacheName(el),
+			method: 'DELETE',
+
+			onSuccess: response => {
+
+				const row = el.getParent('tr')
+				const target = row.getElement('td.cell--usage')
+
+				row[(response.rc[0] ? 'remove' : 'add') + 'Class']('empty')
+				target.innerHTML = response.rc[1]
+
 			}
 
-		}).get()
-	}
+		}).send()
 
-	block.addEvents({
+	})
 
-		'click:relay(td.cell--is-active input)': function(ev, el) {
+	block.addDelegatedEventListener('td.cell--configuration .spinner', 'click', (ev, el) => {
 
-			new Request.API({
+		const cacheId = getCacheName(el)
 
-				url: 'cache/' + el.name + '/enabled',
-				method: el.checked ? 'PUT' : 'DELETE'
+		if (popover)
+		{
+			if (popoverTrigger == cacheId) return
 
-			}).send()
-		},
-
-		'click:relay(button[name="clear"])': function(ev, el) {
-
-			var req = new Request.API({
-
-				url: 'cache/' + getCacheName(el),
-				method: 'DELETE',
-
-				onSuccess: function(response)
-				{
-					var row = el.getParent('tr')
-					, target = row.getElement('td.cell--usage')
-
-					row[(response.rc[0] ? 'remove' : 'add') + 'Class']('empty')
-					target.innerHTML = response.rc[1]
-				}
-			})
-
-			req.send()
-		},
-
-		'click:relay(td.cell--configuration .spinner)': function(ev, el) {
-
-			var cacheId = getCacheName(el)
-
-			if (popover)
-			{
-				if (popoverTrigger == cacheId) return
-
-				popover.hide()
-
-				delete popover
-
-				popover = null
-			}
-
-			popoverTrigger = cacheId
-
-			new Request
-			({
-				url: '/api/cache/' + cacheId + '/editor',
-				onSuccess: function(response)
-				{
-					popover = new Brickrouge.Popover(Elements.from(response).shift(), {
-
-						anchor: el,
-						placement: 'above',
-						onAction: function(ev)
-						{
-							if (ev.action == 'cancel')
-							{
-								popover.hide()
-								popover = null
-							}
-							else if (ev.action == 'ok')
-							{
-								var form = popover.element.getElement('form')
-
-								popover.hide()
-								popover = null
-
-								new Request.API({
-
-									url: 'cache/' + cacheId + '/config',
-
-									onSuccess: function(response)
-									{
-										el.innerHTML = response.rc
-									}
-
-								}).post(form)
-							}
-						}
-					})
-
-					document.body.appendChild(popover.element)
-
-					popover.show()
-				}
-			}).get()
+			popover.hide()
+			popover = null
 		}
+
+		popoverTrigger = cacheId
+
+		new Request({
+
+			url: `/api/cache/${cacheId}/editor`,
+
+			onSuccess: response => {
+
+				popover = new Brickrouge.Popover(createElement(response), {
+
+					anchor: el,
+					placement: 'above'
+
+				})
+
+				popover.observeAction(ev => {
+
+					if (ev.action == 'cancel')
+					{
+						popover.hide()
+						popover = null
+					}
+					else if (ev.action == 'ok')
+					{
+						const form = popover.element.querySelector('form')
+
+						popover.hide()
+						popover = null
+
+						new Request.API({
+
+							url: 'cache/' + cacheId + '/config',
+
+							onSuccess: response => el.innerHTML = response.rc
+
+						}).post(form)
+					}
+
+				})
+
+				document.body.appendChild(popover.element)
+
+				popover.show()
+			}
+		}).get()
 	})
 
 })
