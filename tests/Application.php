@@ -9,12 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace ICanBoogie;
 
-use ICanBoogie;
-
-return [
-
-	ICanBoogie\Application::class . '::get_caches' => CacheCollection::class . '::get'
-
-];
+class Application extends \Icybee\Application
+{
+	use \Icybee\Modules\Cache\Binding\ApplicationBindings;
+}

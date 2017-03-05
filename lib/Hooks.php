@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Cache;
 
+use function ICanBoogie\app;
 use ICanBoogie\HTTP\Request;
 use ICanBoogie\Operation;
 
@@ -21,7 +22,7 @@ class Hooks
 	 */
 	static public function clear_modules_cache()
 	{
-		$app = self::app();
+		$app = app();
 		$caches = [ 'core.modules', 'core.configs', 'core.catalogs' ];
 		$route = $app->routes['api:cache:clear'];
 
@@ -46,17 +47,5 @@ class Hooks
 	static public function on_modules_change(Operation\ProcessEvent $event)
 	{
 		self::clear_modules_cache();
-	}
-
-	/*
-	 * Support
-	 */
-
-	/**
-	 * @return \ICanBoogie\Core|\Icybee\Binding\Core\CoreBindings
-	 */
-	static private function app()
-	{
-		return \ICanBoogie\app();
 	}
 }

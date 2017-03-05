@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
+use ICanBoogie\AppConfig;
 use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
@@ -19,13 +20,15 @@ use Icybee\Modules\Cache\Module;
  */
 class Configs extends CacheManagerBase
 {
+	const VAR_ENABLE = 'enable_configs_cache';
+
 	public $title = "Configurations";
 	public $description = "Configuration files of the framework components.";
 	public $group = 'system';
 
 	public function __construct()
 	{
-		$this->state = $this->app->config['cache configs'];
+		$this->state = $this->app->config[AppConfig::CACHE_CONFIGS];
 	}
 
 	/**
@@ -43,7 +46,7 @@ class Configs extends CacheManagerBase
 	 */
 	public function disable()
 	{
-		unset($this->app->vars['enable_configs_cache']);
+		unset($this->app->vars[self::VAR_ENABLE]);
 
 		return true;
 	}
@@ -55,7 +58,7 @@ class Configs extends CacheManagerBase
 	 */
 	public function enable()
 	{
-		$this->app->vars['enable_configs_cache'] = true;
+		$this->app->vars[self::VAR_ENABLE] = true;
 
 		return true;
 	}

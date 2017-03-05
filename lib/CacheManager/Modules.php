@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
+use ICanBoogie\AppConfig;
 use ICanBoogie\Storage\Storage;
 use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
@@ -20,6 +21,7 @@ use Icybee\Modules\Cache\Module;
  */
 class Modules extends CacheManagerBase
 {
+	const VAR_ENABLE = 'enable_modules_cache';
 	const REGEX = '/^cached_modules_/';
 
 	public $title = "Modules";
@@ -33,7 +35,7 @@ class Modules extends CacheManagerBase
 
 	public function __construct()
 	{
-		$this->state = $this->app->config['cache modules'];
+		$this->state = $this->app->config[AppConfig::CACHE_MODULES];
 		$this->storage = $this->app->vars;
 	}
 
@@ -61,7 +63,7 @@ class Modules extends CacheManagerBase
 	 */
 	public function disable()
 	{
-		unset($this->storage['enable_modules_cache']);
+		unset($this->storage[self::VAR_ENABLE]);
 
 		return true;
 	}
@@ -73,7 +75,7 @@ class Modules extends CacheManagerBase
 	 */
 	public function enable()
 	{
-		$this->storage['enable_modules_cache'] = true;
+		$this->storage[self::VAR_ENABLE] = true;
 
 		return true;
 	}

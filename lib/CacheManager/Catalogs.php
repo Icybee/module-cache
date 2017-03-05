@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Cache\CacheManager;
 
+use ICanBoogie\AppConfig;
 use Icybee\Modules\Cache\CacheManagerBase;
 use Icybee\Modules\Cache\Module;
 
@@ -19,13 +20,22 @@ use Icybee\Modules\Cache\Module;
  */
 class Catalogs extends CacheManagerBase
 {
+	const VAR_ENABLE = 'enable_catalogs_cache';
+
 	public $title = "Translations";
 	public $description = "Translation catalogs for the I18n component.";
 	public $group = 'system';
 
+	/**
+	 * @var string
+	 */
+	private $directory;
+
 	public function __construct()
 	{
-		$this->state = $this->app->config['cache catalogs'];
+		$config = $this->app->config;
+		$this->state = $config[AppConfig::CACHE_CATALOGS];
+		$this->directory = $config[AppConfig::REPOSITORY_CACHE] . '/core';
 	}
 
 	/**
@@ -33,7 +43,7 @@ class Catalogs extends CacheManagerBase
 	 */
 	public function clear()
 	{
-		$files = glob(\ICanBoogie\REPOSITORY . 'cache/core/i18n_*');
+		$files = glob("$this->directory/i18n_*");
 
 		foreach ($files as $file)
 		{
@@ -72,6 +82,6 @@ class Catalogs extends CacheManagerBase
 	 */
 	public function stat()
 	{
-		return Module::get_files_stat(\ICanBoogie\REPOSITORY . 'cache/core', '#^i18n_#');
+		return Module::get_files_stat($this->directory, '#^i18n_#');
 	}
 }

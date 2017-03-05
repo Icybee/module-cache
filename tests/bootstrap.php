@@ -9,12 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Cache;
+namespace ICanBoogie;
 
-use ICanBoogie;
+chdir(__DIR__);
 
-return [
+$module_dir = __DIR__ . '/../vendor/icanboogie-modules';
 
-	ICanBoogie\Application::class . '::get_caches' => CacheCollection::class . '::get'
+if (!file_exists($module_dir)) {
+	mkdir($module_dir);
+}
 
-];
+require __DIR__ . '/../vendor/autoload.php';
+
+$app = boot();
+$app->modules->install();

@@ -14,12 +14,12 @@ namespace Icybee\Modules\Cache\Routing;
 use Brickrouge\Popover;
 
 use Icybee\Binding\Core\PrototypedBindings;
-use Icybee\Modules\Cache\Binding\CoreBindings;
+use Icybee\Modules\Cache\Binding\ApplicationBindings;
 use Icybee\Modules\Cache\Module;
 use Icybee\Routing\AdminController;
 
 /**
- * @property-read \ICanBoogie\Core|CoreBindings $app
+ * @property-read \ICanBoogie\Core|ApplicationBindings $app
  */
 class CacheAdminController extends AdminController
 {

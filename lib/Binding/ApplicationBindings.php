@@ -14,11 +14,11 @@ namespace Icybee\Modules\Cache\Binding;
 use Icybee\Modules\Cache\CacheCollection;
 
 /**
- * {@link \ICanBoogie\ActiveRecord} prototype bindings.
+ * {@link \ICanBoogie\Application} prototype bindings.
  *
  * @property CacheCollection $caches
  */
-trait CoreBindings
+trait ApplicationBindings
 {
 
 }

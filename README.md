@@ -39,20 +39,19 @@ getters to return their values:
 <?php
 
 use ICanBoogie\Accessor\AccessorTrait;
-use ICanBoogie\PropertyNotDefined;
 
-class CacheManagerBase implements Icybee\Modules\Cache\CacheManager
+abstract class CacheManagerAbstract implements Icybee\Modules\Cache\CacheManager
 {
 	use AccessorTrait;
 
 	protected function get_config_preview()
 	{
-		return // …
+		// …
 	}
 
 	protected function get_editor()
 	{
-		return // …
+		// …
 	}
 }
 ```
@@ -74,19 +73,15 @@ configuration:
 
 namespace Icybee\Modules\Views;
 
-$hooks = __NAMESPACE__ . '\Hooks::';
+$hooks = Hooks::class . '::';
 
-return array
-(
-	'events' => array
-	(
+return [
+	'events' => [
 		'Icybee\Modules\Cache\CacheCollection::collect' => $hooks . 'on_cache_collection_collect',
-
 		// ...
-	),
-
+	],
 	// ...
-);
+];
 ```
 
 
@@ -142,6 +137,8 @@ the cache collection.
 
 ```php
 <?php
+
+/* @var \ICanBoogie\Application $app */
 
 $app->caches['core.modules']->clear();
 ```
@@ -241,7 +238,7 @@ The caches of ICanBoogie are cleared when modules are deactivated.
 
 ## Requirement
 
-The package requires PHP 5.5 or later.
+The package requires PHP 5.6 or later.
 
 
 

@@ -11,13 +11,14 @@
 
 namespace Icybee\Modules\Cache;
 
+use function ICanBoogie\app;
 use ICanBoogie\Storage\Storage;
 
 class Module extends \Icybee\Module
 {
 	static public function get_files_stat($path, $pattern=null)
 	{
-		$app = self::app();
+		$app = app();
 
 		if (!file_exists($path))
 		{
@@ -149,13 +150,5 @@ class Module extends \Icybee\Module
 		}
 
 		return $n;
-	}
-
-	/**
-	 * @return \ICanBoogie\Core|\Icybee\Binding\CoreBindings
-	 */
-	static private function app()
-	{
-		return \ICanBoogie\app();
 	}
 }
