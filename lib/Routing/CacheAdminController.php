@@ -11,20 +11,22 @@
 
 namespace Icybee\Modules\Cache\Routing;
 
+use ICanBoogie\Binding\PrototypedBindings;
+
 use Brickrouge\Popover;
 
-use Icybee\Binding\Core\PrototypedBindings;
-use Icybee\Modules\Cache\Binding\ApplicationBindings;
 use Icybee\Modules\Cache\Module;
 use Icybee\Routing\AdminController;
 
-/**
- * @property-read \ICanBoogie\Core|ApplicationBindings $app
- */
 class CacheAdminController extends AdminController
 {
 	use PrototypedBindings;
 
+	/**
+	 * @param string $cache_id
+	 *
+	 * @return Popover
+	 */
 	protected function action_get_editor($cache_id)
 	{
 		$this->assert_has_permission(Module::PERMISSION_ACCESS, $this->module);

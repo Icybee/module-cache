@@ -130,9 +130,9 @@ class Hooks
 
 
 
-### `ICanBoogie\Core\get_caches`
+### `ICanBoogie\Application::get_caches`
 
-The `get_caches` getter is added to instances of the `ICanBoogie\Core` class, it returns
+The `get_caches` getter is added to instances of the `ICanBoogie\Application` class, it returns
 the cache collection.
 
 ```php

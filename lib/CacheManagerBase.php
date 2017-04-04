@@ -11,13 +11,14 @@
 
 namespace Icybee\Modules\Cache;
 
+use function ICanBoogie\app;
 use ICanBoogie\Accessor\AccessorTrait;
-use ICanBoogie\Core;
+use ICanBoogie\Application;
 
 /**
  * Cache manager.
  *
- * @property-read Core $app
+ * @property-read Application $app
  */
 abstract class CacheManagerBase implements CacheManager
 {
@@ -82,10 +83,10 @@ abstract class CacheManagerBase implements CacheManager
 	public $editor;
 
 	/**
-	 * @return Core
+	 * @return Application
 	 */
 	protected function get_app()
 	{
-		return \ICanBoogie\app();
+		return app();
 	}
 }

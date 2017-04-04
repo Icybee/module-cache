@@ -78,7 +78,7 @@ class Module extends \Icybee\Module
 	{
 		$n = 0;
 		$size = 0;
-		$app = self::app();
+		$app = app();
 
 		$iterator = $storage;
 
