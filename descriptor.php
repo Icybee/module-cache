@@ -15,7 +15,6 @@ return [
 
 	],
 
-	Descriptor::REQUIRED => true,
 	Descriptor::TITLE => "Cache"
 
 ];
