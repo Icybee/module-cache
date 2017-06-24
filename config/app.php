@@ -13,7 +13,7 @@ namespace Icybee\Modules\Cache;
 
 use ICanBoogie\AppConfig;
 
-$vars_path = 'repository/vars' . DIRECTORY_SEPARATOR;
+$vars_path = 'repository/var' . DIRECTORY_SEPARATOR;
 
 return [
 
